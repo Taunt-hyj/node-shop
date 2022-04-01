@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 
 const ans = [
     {
+        "_id": '1',
         "name": "繁华若梦",
         "rate": "4.8",
         "image": "assets/tea1.jpg",
@@ -11,6 +12,7 @@ const ans = [
         "profile": "A delicious and refreshing frozen mango ice ceram,in hot weather to create the perfect pulp drink! This cream slushine is made from fresh fruit,ice cubes andcream. It will provide you with refreshing throughout the summer~~",
     },
     {
+        "_id": '2',
         "name": "眉目传情",
         "rate": "4.5",
         "image": "assets/tea2.jpg",
@@ -19,6 +21,7 @@ const ans = [
         "profile": "A delicious and refreshing frozen mango ice ceram,in hot weather to create the perfect pulp drink! This cream slushine is made from fresh fruit,ice cubes andcream. It will provide you with refreshing throughout the summer~~",
     },
     {
+        "_id": '3',
         "name": "浮光撩影",
         "rate": "4.3",
         "image": "assets/tea3.jpg",

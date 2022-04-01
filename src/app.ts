@@ -2,6 +2,7 @@ import express from 'express'
 import {
     homeRoutes,
     authRoutes,
+    userRoutes,
 } from './routes' // 路由
 import passport from 'passport';
 import { PORT } from './config';
@@ -14,11 +15,12 @@ const app = express()
 const start = async () => {
     await connectDb();
 
-    app.use(express.json())
+    app.use(express.json({ limit: '50mb' }))
     app.use(passport.initialize());
 
     app.use('/api/auth', authRoutes);
     app.use('/api/home', homeRoutes);
+    app.use('/api/users', userRoutes);
 
     app.listen(PORT, () => {
         console.log(`Server is running on ${PORT}`);
