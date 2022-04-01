@@ -10,7 +10,6 @@ export interface UserDocument extends Document {
     imageURL?: string;
     password?: string;
     role: Role;
-    googleId?: string;
     matchesPassword: (password: string) => Promise<boolean>;
 }
 
@@ -21,7 +20,6 @@ const UserSchema = new Schema(
         imageURL: String,
         password: String,
         role: String,
-        googleId: String,
     },
     {
         timestamps: true,
