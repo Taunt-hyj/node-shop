@@ -4,6 +4,7 @@ import {
     authRoutes,
     userRoutes,
     cartRoutes,
+    productRoutes,
 } from './routes' // 路由
 import passport from 'passport';
 import { PORT } from './config';
@@ -23,6 +24,7 @@ const start = async () => {
     app.use('/api/home', homeRoutes);
     app.use('/api/users', userRoutes);
     app.use('/api/cart', cartRoutes);
+    app.use('/api/products', productRoutes);
 
     app.listen(PORT, () => {
         console.log(`Server is running on ${PORT}`);
