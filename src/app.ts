@@ -1,6 +1,5 @@
 import express from 'express'
 import {
-    homeRoutes,
     authRoutes,
     userRoutes,
     cartRoutes,
@@ -21,7 +20,6 @@ const start = async () => {
     app.use(passport.initialize());
 
     app.use('/api/auth', authRoutes);
-    app.use('/api/home', homeRoutes);
     app.use('/api/users', userRoutes);
     app.use('/api/cart', cartRoutes);
     app.use('/api/products', productRoutes);

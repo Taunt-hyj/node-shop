@@ -15,6 +15,7 @@ export const index = async (req: Request, res: Response) => {
 
         const total = await features.count().total;
 
+
         res.status(200).json({ data: { total, count: products.length, products } });
     } catch (error) {
         res.status(500).json({ message: 'Error in getting products' });

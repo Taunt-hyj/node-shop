@@ -29,7 +29,6 @@ class APIFeatures {
         this.query = this.query.find(JSON.parse(queryStr));
 
         this.model = this.model.find(JSON.parse(queryStr));
-
         return this;
     }
 
