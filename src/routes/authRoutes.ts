@@ -4,7 +4,9 @@ import {
     signUp,
     getMe,
     changePassword,
-} from '../controllers/authController'; import { protect } from '../middleware';
+    changeRole,
+} from '../controllers/authController';
+import { protect } from '../middleware';
 import {
     validate,
     loginValidation,
@@ -24,4 +26,7 @@ router
     .route('/change-password')
     .patch(changePasswordValidation(), validate, changePassword);
 
+router
+    .route('/change-role')
+    .patch(changeRole);
 export { router as authRoutes };

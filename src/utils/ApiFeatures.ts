@@ -18,17 +18,12 @@ class APIFeatures {
 
         // keyword
         if (this.queryString.keyword) {
-            queryObj = { ...queryObj, $text: { $search: this.queryString.keyword } };
+            queryObj = { ...queryObj, name: eval('/' + this.queryString.keyword + '/gi') };
         }
 
-        // 1B) Advanced filtering
-        let queryStr = JSON.stringify(queryObj);
+        this.query = this.query.find(queryObj);
 
-        queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-
-        this.query = this.query.find(JSON.parse(queryStr));
-
-        this.model = this.model.find(JSON.parse(queryStr));
+        this.model = this.model.find(queryObj);
         return this;
     }
 

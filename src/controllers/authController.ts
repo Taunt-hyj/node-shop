@@ -104,3 +104,20 @@ export const changePassword = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Error in updating password.' });
     }
 };
+
+export const changeRole = async (req: Request, res: Response) => {
+    try {
+        const user = req.user as UserType;
+        let foundUser = await User.findOneAndUpdate(
+            { _id: user._id },
+            { $set: { 'role': Role.Member } },
+            { new: true }
+        );
+
+        if (!foundUser) return res.status(404).json({ message: 'User not found ' });
+
+        sendResponseToken({ user: foundUser, res, statusCode: 200 });
+    } catch (error) {
+        res.status(500).json({ message: 'Error in updating password.' });
+    }
+};
