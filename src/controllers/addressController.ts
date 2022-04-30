@@ -21,35 +21,23 @@ export const index = async (req: Request, res: Response) => {
 export const store = async (req: Request, res: Response) => {
     try {
         const user = req.user as UserTypes;
-        const { addressId, address, name, phone } = req.body;
+        const { address, name, phone } = req.body;
 
         let data = await Address.findOne({ user: user._id });
 
         if (data) {
-            // make sure user is the owner of the cart
+            // make sure user is the owner of the address
             if (user._id.toString() !== data.user.toString()) {
                 return res.status(405).json({
                     message: 'You cannot perform this operation',
                 });
             }
 
-            const isProductExist = data?.items.some((item) =>
-                ObjectId(addressId).equals(item._id)
+            data = await Address.findOneAndUpdate(
+                { _id: data._id },
+                { $addToSet: { items: { address, name, phone } } },
+                { new: true }
             );
-
-            if (isProductExist) {
-                data = await Address.findOneAndUpdate(
-                    { _id: data._id, 'items._id': addressId },
-                    { $inc: { 'items.$.address': address, 'items.$.name': name, 'items.$.phone': phone } },
-                    { new: true }
-                );
-            } else {
-                data = await Address.findOneAndUpdate(
-                    { _id: data._id },
-                    { $addToSet: { items: { address, name, phone } } },
-                    { new: true }
-                );
-            }
         } else {
             data = await Address.create({
                 user: user._id,
@@ -58,7 +46,7 @@ export const store = async (req: Request, res: Response) => {
         }
 
         const addressItem = data?.items.find((item) =>
-            ObjectId(addressId).equals(item._id)
+            (address === item.address && name === item.name && phone === item.phone)
         );
 
         res.status(200).json({ data: addressItem });
@@ -72,6 +60,7 @@ export const remove = async (req: Request, res: Response) => {
         const user = req.user as UserTypes;
 
         const { addressId } = req.body;
+
 
         const data = await Address.findOneAndUpdate(
             { user: user._id },
@@ -94,7 +83,6 @@ export const update = async (req: Request, res: Response) => {
         const user = req.user as UserTypes;
 
         const { addressId, address, name, phone } = req.body;
-
         let data = await Address.findOneAndUpdate(
             { user: user._id, 'items._id': addressId },
             { $set: { 'items.$.address': address, 'items.$.name': name, 'items.$.phone': phone } },
