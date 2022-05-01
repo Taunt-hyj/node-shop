@@ -91,7 +91,7 @@ export const changePassword = async (req: Request, res: Response) => {
 
         if (!foundUser) return res.status(404).json({ message: 'User not found ' });
 
-        const isPasswordCorrect = await foundUser.matchesPassword(oldPassword);
+        const isPasswordCorrect = await foundUser.matchesPassword(foundUser.password, oldPassword);
 
         if (!isPasswordCorrect)
             return res.status(401).json({ message: 'Old password is incorrect' });

@@ -74,7 +74,7 @@ passport.use(
                     });
                 }
 
-                const isPasswordMatch = await user.matchesPassword(password);
+                const isPasswordMatch = await user.matchesPassword(user.password, password);
 
                 if (!isPasswordMatch)
                     return done(null, false, {

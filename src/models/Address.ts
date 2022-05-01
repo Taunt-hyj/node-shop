@@ -4,7 +4,7 @@ import { Schema, model, Document } from 'mongoose';
 const { ObjectId, String } = Schema.Types;
 
 interface Items {
-    private _id(_id: any): unknown;
+    _id: any;
     address: String;
     name: String;
     phone: String;

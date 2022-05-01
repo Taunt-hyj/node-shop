@@ -10,7 +10,7 @@ export interface UserDocument extends Document {
     imageURL?: string;
     password?: string;
     role: Role;
-    matchesPassword: (password: string) => Promise<boolean>;
+    matchesPassword: (usrpassword: any, password: string) => Promise<boolean>;
 }
 
 const UserSchema = new Schema(
@@ -37,11 +37,11 @@ UserSchema.pre<UserDocument>('save', async function () {
 });
 
 // check if password matches the hash password
-UserSchema.methods.matchesPassword = function (password: string) {
-    if (!this.password) {
+UserSchema.methods.matchesPassword = function (usrpassword: any, password: string) {
+    if (!usrpassword) {
         return false;
     }
-    return bcrypt.compareSync(password, this.password);
+    return bcrypt.compareSync(password, usrpassword);
 };
 
 export const User = model<UserDocument>('User', UserSchema);
